@@ -1,3 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
+from .models import Skatepark, Review
+admin.site.register(Skatepark)
+admin.site.register(Review)
