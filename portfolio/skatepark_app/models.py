@@ -6,14 +6,14 @@ class Skatepark(models.Model):
 
 #List of choices for major value in database, human readable name
     DIFFICULTY = (
-    ('1', 'Beginner'),
-    ('2', 'Easy'),
+    ('Beginner', 'Beginner'),
+    ('Easy', 'Easy'),
     ('3', 'Medium'),
     ('4', 'Hard'),
     ('5', 'Extreme'),
 )
     name = models.CharField(max_length=200)
-    Location = models.CharField("Location:", max_length=200)
+    location = models.CharField("Location:", max_length=200)
     difficulty = models.CharField(max_length=200, choices=DIFFICULTY, blank = False)
 
     def __str__(self):

@@ -4,10 +4,30 @@
 
 <!-- Replace block content in base_template.html -->
 {% block content %}
-<h1>Computer Science Portfolios</h1>
-
-
-<h2>More to come from [and your name goes here]</h2>
+<h1>CO Skate8888 Search</h1>
+<a href="/addSkatePark" class="btn btn-primary active">Create Skatepark</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Difficulty</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in skatepark_objects %}
+        <tr>
+            <td>{{ obj.name }}</td>
+            <td>{{ obj.location }}</td>
+            <td>{{ obj.difficulty }}</td>
+            <td>
+                <a class="btn btn-primary" href={{obj.portfolio.get_absolute_url}} role="button">Link</a>
+            </td>
+    
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 
 {% endblock %}

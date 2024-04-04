@@ -1,0 +1,15 @@
+# listings/templates/listings/band_create.html
+
+{% extends 'skatepark_app/base_template.html' %}
+
+{% block content %}
+
+ <h1>Create new skatepark</h1>
+
+<form action="" method="post" novalidate>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
