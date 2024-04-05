@@ -1,0 +1,14 @@
+{% extends 'skatepark_app/base_template.html' %}
+
+{% block content %}
+
+<h1>Delete Band</h1>
+
+<p>Do you wanna delete this skatepark?: {{ skate.name }}</p>
+
+<form action="" method="post">
+{% csrf_token %}
+<input type="submit" value="Delete">
+</form>
+
+{% endblock %}

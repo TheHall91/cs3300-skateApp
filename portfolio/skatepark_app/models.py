@@ -8,9 +8,9 @@ class Skatepark(models.Model):
     DIFFICULTY = (
     ('Beginner', 'Beginner'),
     ('Easy', 'Easy'),
-    ('3', 'Medium'),
-    ('4', 'Hard'),
-    ('5', 'Extreme'),
+    ('Medium', 'Medium'),
+    ('Hard', 'Hard'),
+    ('Extreme', 'Extreme'),
 )
     name = models.CharField(max_length=200)
     location = models.CharField("Location:", max_length=200)
