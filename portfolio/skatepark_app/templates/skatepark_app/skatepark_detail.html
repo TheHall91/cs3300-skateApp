@@ -3,11 +3,12 @@
 
 {% block content %}
 
-<h2>{{ skate.name }}</h2>
+<h2 style="color:navy; font-size=30px;">{{ skate.name }}</h2>
 
 <ul>
- <li>Location: {{ skate.location }}</li>
- <li>Difficulty: {{ skate.difficulty }}</li>
+ <li style="color:rebeccapurple; font-size:20px">Location: {{ skate.location }}</li>
+ <li style="color:rebeccapurple; font-size:20px">Difficulty: {{ skate.difficulty }}</li>
+ <li style="color:rebeccapurple; font-size:20px">Rating: {{ skate.rating }}</li>
          
  <a href="{% url 'skatepark-update' skate.id %}" class="btn btn-warning">Edit Entry</a>
  <a href="{% url 'skatepark-delete' skate.id %}" class="btn btn-danger">Delete Entry</a>

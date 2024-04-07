@@ -5,14 +5,15 @@
 <!-- Replace block content in base_template.html -->
 {% block content %}
 
-<h1>CO Skate Search</h1>
-<a href="/addSkatePark" class="btn btn-primary active btn-lg">Create Skatepark</a>
+<h1>Colorado Skate Search</h1>
+<a href="/addSkatePark" class="btn btn-primary active btn-lg" >Create Skatepark</a>
 <table class="table">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Difficulty</th>
+            <th style="color:navy; font-size=30px;">Name</th>
+            <th style="color:navy; font-size=30px;">Location</th>
+            <th style="color:navy; font-size=30px;">Difficulty</th>
+            <th style="color:navy; font-size=30px;">Rating</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
             <td>{{ obj.name }}</td>
             <td>{{ obj.location }}</td>
             <td>{{ obj.difficulty }}</td>
+            <td>{{ obj.rating }}</td>
             <td>
                 <a type="button" class="btn btn-primary" href="{{obj.portfolio.get_absolute_url}}/{{obj.id}}">More Details</a>
             </td>
