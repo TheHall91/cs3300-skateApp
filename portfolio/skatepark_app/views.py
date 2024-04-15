@@ -62,3 +62,5 @@ def skatepark_delete(request, id):
 def skatepark_listall(request): 
     # Render the HTML template index.html with the data in the context variable. 
     return render( request, 'skatepark_app/skatepark_listall.html', {'skatepark_objects' : Skatepark.objects.all()})
+
+
