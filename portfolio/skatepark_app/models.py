@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Skatepark(models.Model):
@@ -40,3 +41,13 @@ class Review(models.Model):
 # add a "View on Site" button to the model's record editing screens in the Admin site
     def get_absolute_url(self):
         return reverse('student-detail', args=[str(self.id)])
+
+class Skater(models.Model):
+    username = models.CharField("Username:", max_length=200)
+    email = models.EmailField("Email: ", max_length=200)
+    phone = models.CharField("Phone: ", max_length=13)
+    user = models. OneToOneField(User, null=True, on_delete=models.CASCADE)
+
+#class Skater2(models.Skater):
+ #   def get_by_natural_key(self, username):
+  #      return self.get(user__username==username)

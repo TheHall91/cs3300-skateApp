@@ -1,12 +1,30 @@
-{% extends 'portfolio_app/base_template.html' %}
+{% extends 'skatepark_app/base_template.html' %}
 
 {% block content %}
-  <h2>UCCS Student Portfolio Registration</h2>
+  <h2>Register</h2>
 
-  <form method="post">
+  
+  <form method="post" action="">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="Create User" />
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.email.label_tag }}</td>
+        <td>{{ form.email }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password1.label_tag }}</td>
+        <td>{{ form.password1 }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password2.label_tag }}</td>
+        <td>{{ form.password2 }}</td>
+      </tr>
+    </table>
+    <input type="submit" value="login">
+    <input type="hidden" name="next" value="{{ next }}">
   </form>
-  {{form.errors}}
 {% endblock %}

@@ -1,14 +1,25 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest
-from .forms import SkateparkForm
+from .forms import SkateparkForm, CreateUserForm
 from .models import Skatepark
+
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here. 
+
 def index(request): 
     # Render the HTML template index.html with the data in the context variable. 
     return render( request, 'skatepark_app/index.html', {'skatepark_objects' : Skatepark.objects.all()})
 
 # listings/views.py
 
+def registerPage(request):
+    form = CreateUserForm(request.POST)
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    return render(request, 'registration/register.html', {'form': form })
 
 
 def skatepark_detail(request, id):
