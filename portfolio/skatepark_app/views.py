@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest
 from .forms import SkateparkForm, CreateUserForm
 from .models import Skatepark
-
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here. 
 
@@ -12,14 +13,30 @@ def index(request):
 
 # listings/views.py
 
+
+def loginPage(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('allParks')
+        else:
+            messages.info(request, 'Username/Password is incorrect')
+    return render(request, 'registration/login.html', {})
+
+
 def registerPage(request):
-    form = CreateUserForm(request.POST)
+    form = CreateUserForm()
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form =CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-
-    return render(request, 'registration/register.html', {'form': form })
+            user = form.cleaned_data.get('username')
+            messages.success(request, 'Account Created For ' + user)
+            return redirect('login')
+    return render(request, 'registration/register.html', {'form' : form })
 
 
 def skatepark_detail(request, id):

@@ -12,7 +12,8 @@ urlpatterns = [
     path('<int:id>', views.skatepark_detail, name='skatepark-detail'),
     path('<int:id>/update', views.skatepark_update, name='skatepark-update'),
     path('<int:id>/delete', views.skatepark_delete, name='skatepark-delete'),
-     path('accounts/register', views.registerPage, name='account-register'),
+    path('accounts/register', views.registerPage, name='register'),
+    path('accounts/login', views.loginPage, name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     #path('register', ),
     #accounts/ login/ [name='login']
