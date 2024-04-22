@@ -30,8 +30,7 @@ class Skatepark(models.Model):
 class Review(models.Model): 
     title = models.CharField("Review Title:", max_length=200)
     review = models.CharField("Review:", max_length=400)
-    park = models.ForeignKey(Skatepark, on_delete=models.CASCADE)
-    
+    skatepark = models.ForeignKey(Skatepark, related_name="reviews", null=True,  on_delete=models.CASCADE)
     
     def __str__(self):
         return self.title

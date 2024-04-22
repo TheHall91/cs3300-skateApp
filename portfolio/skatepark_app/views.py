@@ -5,6 +5,8 @@ from .models import Skatepark
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 # Create your views here. 
 
 def index(request): 
@@ -15,34 +17,48 @@ def index(request):
 
 
 def loginPage(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('allParks')
-        else:
-            messages.info(request, 'Username/Password is incorrect')
-    return render(request, 'registration/login.html', {})
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        if request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('allParks')
+            else:
+                messages.info(request, 'Username/Password is incorrect')
+        return render(request, 'registration/login.html', {})
 
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
 
 def registerPage(request):
-    form = CreateUserForm()
-    if request.method == 'POST':
-        form =CreateUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, 'Account Created For ' + user)
-            return redirect('login')
-    return render(request, 'registration/register.html', {'form' : form })
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:
+        form = CreateUserForm()
+        if request.method == 'POST':
+            form =CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                user = form.cleaned_data.get('username')
+                messages.success(request, 'Account Created For ' + user)
+                return redirect('login')
+        return render(request, 'registration/register.html', {'form' : form })
 
 
 def skatepark_detail(request, id):
-  skate = Skatepark.objects.get(id=id) # we insert this line to get the Band with that id
-  return render(request, 'skatepark_app/skatepark_detail.html',{'skate': skate}) # we update this line to pass the band to the template
+  skate = Skatepark.objects.get(id=id)
+  test_display=Skatepark.objects.prefetch_related('reviews').get(id=id)
+  
+  #reviews = skate.reviews.all() # we insert this line to get the Band with that id
+  return render(request, 'skatepark_app/skatepark_detail.html', {'skate' : skate, 'test_display' : test_display}) # we update this line to pass the band to the template
 ...
+
+@login_required(login_url='login')
 def skatepark_create(request):
    # listings/views.py
 
@@ -61,6 +77,7 @@ def skatepark_create(request):
             'skatepark_app/create_skatepark.html',
             {'form': form})
 
+@login_required(login_url='login')
 def skatepark_update(request, id):
     skate = Skatepark.objects.get(id=id)
 
@@ -76,6 +93,7 @@ def skatepark_update(request, id):
 
     return render(request,'skatepark_app/skatepark_update.html', {'form': form})
 
+@login_required(login_url='login')
 def skatepark_delete(request, id):
     skate = Skatepark.objects.get(id=id)
     # listings/views.py
@@ -86,6 +104,7 @@ def skatepark_delete(request, id):
         return redirect('index')
     # no need for an `else` here. If it's a GET request, just continue
     return render(request,'skatepark_app/skatepark_delete.html',{'skate' : skate})
+
 
 def skatepark_listall(request): 
     # Render the HTML template index.html with the data in the context variable. 
