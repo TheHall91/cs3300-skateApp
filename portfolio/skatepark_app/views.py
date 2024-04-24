@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest
 from .forms import SkateparkForm, CreateUserForm
 from .models import Skatepark
+from django.db.models import Q
 from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -54,7 +55,14 @@ def registerPage(request):
 class SearchResultsView(ListView):
     model = Skatepark
     template_name = 'skatepark_app/search.html'
-    queryset = Skatepark.objects.filter(name__icontains='Goose') # new
+    queryset = Skatepark.objects.filter(name__icontains='Goose')
+    def get_queryset(self):  # new
+        query = self.request.GET.get("q")
+        object_list = Skatepark.objects.filter(
+            Q(name__icontains=query) | Q(location__icontains=query) | Q(difficulty__icontains=query)
+        )
+        return object_list
+
 
 def skatepark_detail(request, id):
   skate = Skatepark.objects.get(id=id)
