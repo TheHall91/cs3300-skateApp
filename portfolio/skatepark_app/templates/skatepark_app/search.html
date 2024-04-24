@@ -1,0 +1,39 @@
+
+
+{% extends 'skatepark_app/base_template.html'%}
+
+{%block content%}
+<h1>Search Results</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th style="color:navy; font-size=30px;">Name</th>
+            <th style="color:navy; font-size=30px;">Location</th>
+            <th style="color:navy; font-size=30px;">Difficulty</th>
+            <th style="color:navy; font-size=30px;">Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in object_list %}
+        <tr>
+            <td>{{ obj.name }}</td>
+            <td>{{ obj.location }}</td>
+            <td>{{ obj.difficulty }}</td>
+            <td>{{ obj.rating }}</td>
+            <td>
+                <a type="button" class="btn btn-primary" href="{{obj.portfolio.get_absolute_url}}/{{obj.id}}">More Details</a>
+            </td>
+    
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<ul>
+  {% for skate in object_list %}
+    <li>
+      {{ skate.name }}, {{ skate.state }}
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

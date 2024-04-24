@@ -1,5 +1,6 @@
 from django.urls import path 
 from . import views 
+from .views import SearchResultsView
 from django.conf.urls import include
 urlpatterns = [ 
     #path function defines a url pattern #'' is empty to represent 
@@ -15,6 +16,7 @@ urlpatterns = [
     path('accounts/register', views.registerPage, name='register'),
     path('accounts/login', views.loginPage, name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path("search/", views.SearchResultsView.as_view(), name="search_results"),
     #path('register', ),
     #accounts/ login/ [name='login']
     #accounts/ logout/ [name='logout']
