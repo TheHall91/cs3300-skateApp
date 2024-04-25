@@ -3,6 +3,7 @@ from django.http import HttpResponseBadRequest
 from .forms import SkateparkForm, CreateUserForm
 from .models import Skatepark
 from django.db.models import Q
+from django.conf import settings
 from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -67,9 +68,10 @@ class SearchResultsView(ListView):
 def skatepark_detail(request, id):
   skate = Skatepark.objects.get(id=id)
   test_display=Skatepark.objects.prefetch_related('reviews').get(id=id)
-  
-  #reviews = skate.reviews.all() # we insert this line to get the Band with that id
-  return render(request, 'skatepark_app/skatepark_detail.html', {'skate' : skate, 'test_display' : test_display}) # we update this line to pass the band to the template
+  key = settings.GOOGLE_MAPS_API_KEY
+  context = {'key':key}
+  reviews = skate.reviews.all() # we insert this line to get the Band with that id
+  return render(request, 'skatepark_app/skatepark_detail.html', {'skate' : skate, 'key': key}) # we update this line to pass the band to the template
 ...
 
 @login_required(login_url='login')
