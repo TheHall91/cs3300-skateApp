@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'skatepark_app',
     'django_bootstrap5',
+    'django_google_maps',
 ]
 
 AUTHENTICATION_BACKENDS = [ 'django.contrib.auth.backends.ModelBackend', ]
@@ -129,5 +130,8 @@ MEDIA_URL = '/images/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL='/'
+
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyBDN4tKkOgINSIXX_zWx8yxqWvXHWlYt6M'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

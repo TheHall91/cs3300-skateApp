@@ -17,6 +17,8 @@ class Skatepark(models.Model):
     location = models.CharField("Location:", max_length=200)
     difficulty = models.CharField(max_length=200, choices=DIFFICULTY, blank = False)
     rating = models.DecimalField(max_digits=3, decimal_places=1)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
 
     def __str__(self):
         return self.name
