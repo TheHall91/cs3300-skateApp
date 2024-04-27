@@ -69,22 +69,16 @@ def skatepark_detail(request, id):
   skate = Skatepark.objects.get(id=id)
   test_display=Skatepark.objects.prefetch_related('reviews').get(id=id)
   key = settings.GOOGLE_MAPS_API_KEY
-  context = {'key':key}
-  reviews = skate.reviews.all() # we insert this line to get the Band with that id
-  return render(request, 'skatepark_app/skatepark_detail.html', {'skate' : skate, 'key': key}) # we update this line to pass the band to the template
+  return render(request, 'skatepark_app/skatepark_detail.html', {'skate' : skate, 'key': key}) 
 ...
 
 @login_required(login_url='login')
 def skatepark_create(request):
-   # listings/views.py
 
     if request.method == 'POST':
         form = SkateparkForm(request.POST)
         if form.is_valid():
-            # create a new `Band` and save it to the db
             park = form.save()
-            # redirect to the detail page of the band we just created
-            # we can provide the url pattern arguments as arguments to redirect function
             return redirect('index')
 
     else:

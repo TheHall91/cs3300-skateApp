@@ -132,6 +132,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL='/'
 
 
-GOOGLE_MAPS_API_KEY = 'AIzaSyBDN4tKkOgINSIXX_zWx8yxqWvXHWlYt6M'
+GOOGLE_MAPS_API_KEY = 'AIzaSyCVWz9TeNdnblN5gQBLtp1KeK8X2g9KyWk'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
