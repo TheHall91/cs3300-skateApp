@@ -33,6 +33,7 @@ class Review(models.Model):
     title = models.CharField("Review Title:", max_length=200)
     review = models.CharField("Review:", max_length=400)
     skatepark = models.ForeignKey(Skatepark, related_name="reviews", null=True,  on_delete=models.CASCADE)
+    rating = models.DecimalField(max_length=5, max_digits=3, decimal_places=1)
     
     def __str__(self):
         return self.title
@@ -47,7 +48,7 @@ class Skater(models.Model):
     username = models.CharField("Username:", max_length=200)
     email = models.EmailField("Email: ", max_length=200)
     phone = models.CharField("Phone: ", max_length=13)
-    user = models. OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
 
 #class Skater2(models.Skater):
  #   def get_by_natural_key(self, username):

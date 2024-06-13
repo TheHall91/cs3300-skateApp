@@ -26,9 +26,28 @@
  
  <a href="{% url 'skatepark-update' skate.id %}" class="btn btn-warning">Edit Entry</a>
  <a href="{% url 'skatepark-delete' skate.id %}" class="btn btn-danger">Delete Entry</a>
- <a href="" class="btn btn-danger">Add A Review</a>
+ <a href="{% url 'review-create' skate.id %}" class="btn btn-danger">Add A Review</a>
   </ul>
 </ul>
+
+
+  {% for rev in reviews %}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h1>{{ rev.title }}</h1>
+      <p>{{ rev.review }}</p>
+
+      <div class="d-flex justify-content-between">
+        <div class="d-flex flex-row align-items-center">
+          <p class="small text-muted mb-0">Rating:</p>
+          <i class="far fa-thumbs-up mx-2 fa-xs text-body" style="margin-top: -0.16rem;"></i>
+          <p class="small text-muted mb-0">{{ rev.rating }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
 
 <div id="map" ></div>
 <script

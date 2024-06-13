@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest
-from .forms import SkateparkForm, CreateUserForm
+from .forms import SkateparkForm, CreateUserForm, ReviewForm
 from .models import Skatepark
 from django.db.models import Q
 from django.conf import settings
@@ -67,9 +67,9 @@ class SearchResultsView(ListView):
 
 def skatepark_detail(request, id):
   skate = Skatepark.objects.get(id=id)
-  test_display=Skatepark.objects.prefetch_related('reviews').get(id=id)
-  key = settings.GOOGLE_MAPS_API_KEY
-  return render(request, 'skatepark_app/skatepark_detail.html', {'skate' : skate, 'key': key}) 
+  review = skate.reviews.all()
+  #key = settings.GOOGLE_MAPS_API_KEY
+  return render(request, 'skatepark_app/skatepark_detail.html', {'skate' : skate, 'reviews': review}) 
 ...
 
 @login_required(login_url='login')
@@ -86,6 +86,19 @@ def skatepark_create(request):
     return render(request,
             'skatepark_app/create_skatepark.html',
             {'form': form})
+
+
+@login_required(login_url='login')
+def review_create(request, id):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            rv = form.save()
+            return redirect('index')
+    else:
+        form = ReviewForm()
+        return render(request, 'skatepark_app/review_create.html', {'form' : form})
+        
 
 @login_required(login_url='login')
 def skatepark_update(request, id):

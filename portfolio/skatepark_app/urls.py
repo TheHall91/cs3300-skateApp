@@ -17,6 +17,7 @@ urlpatterns = [
     path('accounts/login', views.loginPage, name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path("search/", views.SearchResultsView.as_view(), name="search_results"),
+    path('<int:id>/createReview', views.review_create, name='review-create'),
     #path('register', ),
     #accounts/ login/ [name='login']
     #accounts/ logout/ [name='logout']
