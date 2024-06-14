@@ -94,6 +94,8 @@ def review_create(request, id):
         form = ReviewForm(request.POST)
         if form.is_valid():
             rv = form.save()
+            rv.user = request.user
+            rv.save()
             return redirect('index')
     else:
         form = ReviewForm()

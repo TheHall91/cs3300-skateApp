@@ -34,6 +34,7 @@ class Review(models.Model):
     review = models.CharField("Review:", max_length=400)
     skatepark = models.ForeignKey(Skatepark, related_name="reviews", null=True,  on_delete=models.CASCADE)
     rating = models.DecimalField(max_length=5, max_digits=3, decimal_places=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     
     def __str__(self):
         return self.title
